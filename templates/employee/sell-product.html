@@ -1,0 +1,64 @@
+{%extends 'employee/layout.html'%}
+
+{%block content%}
+Sell Product
+<div class="row mt-3">
+
+    <h4 class="text-center">{{p[1]}}</h4>
+    <div class="col-md-5">
+        <img src="{{url_for('static', filename='images/'+p[3])}}" class="" height="250px" width="100%" alt="">
+        <hr>
+        <h6>Product Description</h6>
+        <p>{{p[2]}}</p>
+    </div>
+
+    <div class="col-md-7">
+        <div class="row">
+            <div class="col-6">
+                <h6 class="product-price" data-price="{{p[6]}}" >Price : {{p[6]}}ugx</h6>
+            </div>
+            <div class="col-6">
+                <h6>Available Quantity : {{p[7]}}</h6>
+            </div>
+                <hr>
+                <form action="{{url_for('sellProduct', id=p[0])}}" class="p-4 sell-product-form" method="POST">
+                    <input type="hidden" name="qty" value="{{p[7]}}" id="">
+                    <input type="hidden" name="pdt" value="{{p[1]}}" id="">
+                    <label for="quantity-input">Quantity Required</label>
+                    
+                    <input type="number" class="form-control my-2 quantity-input" min="1" placeholder="1" name="quantity" id="quantity-input">
+                    <label for="total-price">Total Price</label>
+                    <input type="text" name="total-price" class="form-control my-2 total-price" placeholder="{{p[6]}}" readonly>
+            
+                    <button type="submit" class="btn btn-secondary my-2 w-100">Sell</button>
+                </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        // Assuming that the product price is initially stored in p[6]
+        var initialPrice = parseFloat("{{p[6]}}") || 0;
+
+        // Set the initial value for total price based on the initial product price
+        $(".total-price").val(initialPrice.toFixed(2));
+
+        // Bind an event handler to the quantity input change event
+        $(".quantity-input").on("input", function () {
+            var quantity = $(this).val();
+            // Use the current product price from the input placeholder
+            var price = parseFloat($(".total-price").attr("placeholder")) || 0;
+            var total = quantity * price;
+
+            // Update the "Total Price" input field
+            $(this).closest(".sell-product-form").find(".total-price").val(total.toFixed(2));
+        });
+    });
+</script>
+
+{%endblock%}

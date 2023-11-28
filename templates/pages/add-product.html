@@ -1,0 +1,61 @@
+{%extends 'layout.html'%}
+
+{%block content%}
+<div class="container">
+    <div class="card p-5 mx-auto" style="-webkit-box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+background-color: #FFF;">
+        <h3 class="text-center white-bg p-3">Add product</h3>
+        <form action="{{url_for('addProduct')}}" class="form-horizontal" method="POST" enctype="multipart/form-data">
+            <input type="text" name="pdt_name" class="form-control my-2" placeholder="Enter Product Name" required>
+            <input type="file" name="pdt_image" class="form-control" accept="image/*" required>
+
+            <div class="my-2">
+                <label for="category">Select Category</label>
+                <select name="category" id="category" class="form-control my-1" required>
+                    {% for c in categories %}
+                    <option value="{{c[1]}}">
+                        {{c[1]}}
+                    </option>
+                    {%endfor%}
+
+                </select>
+            </div>
+
+            <div class="my-2">
+                <label for="warehouse">Select Warehouse</label>
+                <select name="warehouse" id="warehouse" class="form-control my-1" required>
+                    {% for w in wareHouse%}
+                    <option value="{{w[1]}}">
+                        {{w[1]}}
+                    </option>
+                    {%endfor%}
+
+                </select>
+            </div>
+
+            <textarea name="pdt_dsc" id="pdt_dsc" cols="30" rows="5" placeholder="Product Description"
+                class="form-control my-3" required></textarea>
+
+            <input type="number" name="pdt_price" id="pdt_price" class="form-control my-2"
+                placeholder="Enter Product price" required>
+
+            <input type="number" name="pdt_quantity" id="pdt_quantity" class="form-control my-2"
+                placeholder="Enter Product quantity" required>
+
+            <label for="availability">Availability</label>
+            <div class="my-2">
+                <input type="radio" name="availability" id="available" value="available" required>
+                <label for="available">Available</label>
+
+                <input type="radio" name="availability" id="not_available" value="not_available" required>
+                <label for="not_available">Not Available</label>
+            </div>
+
+            <button type="submit" class="btn btn-secondary">Add product</button>
+        </form>
+
+    </div>
+
+</div>
+{%endblock%}

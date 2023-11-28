@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{%block content%}
+Dashboard
+<div class="container">
+    <div class="row justify-content-between">
+        <hr>
+        <div class="col-md-3 text-center white-bg p-4 m-3">
+            <h3>{{num_pdt}}</h3>
+            <a href="#" class="nav-link"><h6>Products</h6></a>
+        </div>
+
+        <div class="col-md-3 text-center white-bg p-4 m-3">
+            <h3>{{num_w}}</h3>
+            <a href="#" class="nav-link"><h6>WareHouse</h6></a>
+        </div>
+
+        <div class="col-md-3 text-center white-bg p-4 m-3">
+            <h3>{{num_c}}</h3>
+            <a href="#" class="nav-link"><h6>Catgeories</h6></a>
+        </div>
+
+        <div class="col-md-3 text-center white-bg p-4 m-3">
+            <h3>{{num_e}}</h3>
+            <a href="#" class="nav-link"><h6>Employees</h6></a>
+        </div>
+
+        <div class="col-md-3 text-center white-bg p-4 m-3">
+            <h3>{{num_s}}</h3>
+            <a href="#" class="nav-link"><h6>Suppliers</h6></a>
+        </div>
+
+        <div class="col-md-3 text-center white-bg p-4 m-3">
+            <h3>{{num_sale}}</h3>
+            <a href="#" class="nav-link"><h6>Sales</h6></a>
+        </div>
+    </div>
+
+    
+    <hr>
+</div>
+
+{%endblock%}

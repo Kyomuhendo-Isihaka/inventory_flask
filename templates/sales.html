@@ -1,0 +1,38 @@
+{%extends 'layout.html'%}
+
+{%block content%}
+Sales
+
+<div class="col-md-12 p-2">
+    <button class="btn bg-light text-dark" style="font-size:0.8rem;">copy</button>
+    <button class="btn bg-light text-dark" style="font-size:0.8rem;">Excel</button>
+    <button class="btn bg-light text-dark" style="font-size:0.8rem;">Print</button>
+    
+</div>
+
+<input type="text" name="searchKeyword" id="searchInput" onkeyup="searchTable()"
+    placeholder="Search Sales by Employee or product" class="form-control my-3">
+
+<table class="table table-bordered table-striped white-bg mt-3" id="dataTable">
+    <thead>
+        <tr>
+            <th>Employee</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price(ugx)</th>
+            <th>Date Sold</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for s in sales%}
+        <tr>
+            <td>{{ s[1] }}</td>
+            <td>{{ s[2] }}</td>
+            <td>{{s[3]}}</td>
+            <td>{{s[4]}}</td>
+            <td>{{s[5]}}</td>
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
+{%endblock%}

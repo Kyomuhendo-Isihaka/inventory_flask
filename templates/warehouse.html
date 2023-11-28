@@ -1,0 +1,165 @@
+{%extends 'layout.html'%}
+
+{%block content%}
+WareHouse
+<div class="row">
+    <div class="col-md-12 p-2">
+        <button class="btn bg-light text-dark" style="font-size:0.8rem;">copy</button>
+        <button class="btn bg-light text-dark" style="font-size:0.8rem;">Excel</button>
+        <button class="btn bg-light text-dark" style="font-size:0.8rem;">Print</button>
+        <button data-bs-target="#add_warehouse" data-bs-toggle="modal"
+            class="btn btn-secondary float-end">Add
+            WareHouse</button>
+       
+    </div>
+
+    <input type="text" name="searchKeyword" id="searchInput" onkeyup="searchTable()"
+    placeholder="Search for a WareHouse" class="form-control my-3">
+    
+    <table class="table table-bordered table-striped mt-2" id="dataTable" style="-webkit-box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    background-color: #FFF;">
+        <thead>
+            <tr>
+                <th scope="col">WareHouse</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for w in wareHouse%}
+            <tr>
+                <td>{{w[1]}}</td>
+                <td>
+                    {%if w[2]=='In-active' %}
+                    <span class='text-danger'>In-active</span>
+                    {% elif w[2]!='In-active' %}
+                    <span class='text-success'>Active</span>
+                    {%endif%}
+                    
+                </td>
+                <td>
+
+                    <button data-bs-target="#edit_warehouse/{{w[0]}}" data-bs-toggle="modal"
+                        class="btn">
+                        <i class=' text-warning fas fa-edit p-2'></i></button>
+
+
+                    <button class="btn text-danger" data-bs-toggle="modal"
+                        data-bs-target="#delete_warehouse/{{w[0]}}"><i class="fa fa-trash"></i></button>
+                </td>
+            </tr>
+            {% endfor %}
+
+            
+            {%for w in wareHouse %}
+            <!-- ----------------------edit warehouse popup------------- -->
+            <div class="modal fade" id="edit_warehouse/{{w[0]}}" data-bs-backdrop="static"
+                data-bs-keyboard="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit WhareHouse</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{url_for('editWarehouse')}}" class="form-horizontal" method="POST">
+                                <input type="hidden" name="wh_id" value="{{w[0]}}" id="">
+                                <div class="form-group">
+                                    <label for="name" class="col-sm-2 control-label">WareHouse</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" name="whname" value="{{w[1]}}"
+                                            class="form-control" placeholder="Enter Name" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name" class="col-sm-2 control-label">Status</label>
+                                    <div class="col-sm-12">
+                                        <select name="status" class="form-control" required>
+                                            <option value="">Select Status</option>
+                                            <option value="Active">Active</option>
+                                            <option value="In-active">In-active</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" 
+                                        class="btn btn-secondary w-25">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer"></div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- -------delete warehouse popup -------- -->
+             <div class="modal fade" id="delete_warehouse/{{w[0]}}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body text-center">
+                            <p>Do you want to Delete this WareHouse</p>
+                            <form action="{{url_for('deleteWarehouse')}}" method="POST">
+                                <input name="wh_id" type="hidden" value="{{w[0]}}">
+                                <div class="text-center p-3">
+                                    <button type="button" class="btn m-4 bg-primary"
+                                        data-bs-dismiss="modal">No</button>
+                                    <button type="submit" name="delete_warehouse" class="btn btn-danger"
+                                        id="confirmButton">Yes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+
+           
+            
+        </tbody>
+    </table>
+</div>
+
+
+<div class="modal fade" id="add_warehouse" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add WhareHouse</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{url_for('addWarehouse')}}" class="form-horizontal" method="POST">
+
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">WareHouse</label>
+                        <div class="col-sm-12">
+                            <input type="text" name="wname" class="form-control" placeholder="Enter Name"
+                                required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">Status</label>
+                        <div class="col-sm-12">
+                            <select name="status" class="form-control" required>
+                                <option value="">Select Status</option>
+                                <option value="Active">Active</option>
+                                <option value="In-active">In-active</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" name="add_warehouse"
+                            class="btn btn-secondary w-25">Add</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

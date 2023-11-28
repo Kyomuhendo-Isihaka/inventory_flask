@@ -1,0 +1,25 @@
+{%extends 'employee/layout.html'%}
+
+{%block content%}
+Settings
+<div class="container mt-3">
+    <div class="card mx-auto w-75 white-bg p-3">
+        <h3 class="text-center">Edit My Information</h3>
+        <h5 class="text-center text-danger">{{msg}}</h5>
+        <form action="{{url_for('esettings')}}" method="POST">
+            <label for=""><p>Edit email</p></label>
+            <input type="text" class="form-control mb-3"  name="email" value="{{user[2]}}" id="" required>
+
+            <label for=""><p>Edit Password</p></label>
+            <input type="password" class="form-control mb-3"  name="o_pass"  placeholder="Enter Old Password" id="" required>
+
+            <input type="password" class="form-control mb-3"  name="n_pass"  placeholder="Enter New Password" id="" required>
+
+            <input type="password" class="form-control mb-3"  name="cf_pass" placeholder="Confirm Password"  id="" required>
+
+            <button type="submit" class="btn btn-secondary form-control">Update</button>
+
+        </form>
+    </div>
+</div>
+{%endblock%}

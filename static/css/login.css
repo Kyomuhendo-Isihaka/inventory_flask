@@ -1,0 +1,12 @@
+.main{
+    padding: 15px;
+    width: 400px;
+    margin-left: 25%;
+    margin-top: 8%;
+}
+
+.main_body{
+    -webkit-box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    padding: 20px;
+}

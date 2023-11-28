@@ -1,0 +1,72 @@
+{%extends 'layout.html'%}
+
+{%block content%}
+
+<div class="container">
+    <div class="card p-5 mx-auto white-bg">
+        <h3 class="text-center white-bg p-3">Edit product</h3>
+
+        <form action="{{url_for('editProduct', id=p[0])}}" class="form-horizontal" method="POST"
+            enctype="multipart/form-data">
+            <label for="">Product Name</label>
+            <input type="text" name="pdt_name" class="form-control my-2" value="{{p[1]}}"
+                placeholder="Enter Product Name" required>
+
+            <label for="">Product Image</label>
+            <input type="file" name="pdt_image" class="form-control" accept="image/*">
+            <input type="hidden" value="{{p[3]}}" name="pdt_image" id="">
+
+            <div class="my-2">
+                <label for="category">Select Category</label>
+                <select name="category" id="category" class="form-control my-1" required>
+                    {% for c in categories %}
+                    <option value="{{c[0]}}">
+                        {{c[1]}}
+                    </option>
+                    {%endfor%}
+
+                </select>
+            </div>
+
+            <div class="my-2">
+                <label for="warehouse">Select Warehouse</label>
+                <select name="warehouse" id="warehouse" class="form-control my-1" required>
+                    {% for w in wareHouse%}
+                    <option value="{{w[0]}}">
+                        {{w[1]}}
+                    </option>
+                    {%endfor%}
+
+                </select>
+            </div>
+            <label for="">Product Description</label>
+            <textarea name="pdt_dsc" id="pdt_dsc" cols="30" rows="5" placeholder="Product Description"
+                class="form-control my-3" required>{{p[2]}}</textarea>
+
+            <label for="">Product Price</label>
+
+            <input type="number" name="pdt_price" value="{{p[6]}}" id="pdt_price" class="form-control my-2"
+                placeholder="Enter Product price" required>
+
+            <label for="">Product quantity</label>
+
+            <input type="number" name="pdt_quantity" value="{{p[7]}}" id="pdt_quantity" class="form-control my-2"
+                placeholder="Enter Product quantity" required>
+
+            <label for="availability">Availability</label>
+            <div class="my-2">
+                <input type="radio" name="availability" id="available" value="available" required>
+                <label for="available">Available</label>
+
+                <input type="radio" name="availability" id="not_available" value="not_available" required>
+                <label for="not_available">Not Available</label>
+            </div>
+
+            <button type="submit" class="btn btn-secondary">Update product</button>
+        </form>
+
+    </div>
+
+</div>
+
+{%endblock%}

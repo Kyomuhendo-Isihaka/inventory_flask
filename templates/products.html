@@ -1,0 +1,93 @@
+{%extends 'layout.html'%}
+
+{%block content%}
+Products
+<div class="row">
+    <div class="col-md-12 p-2">
+        <a href="{{url_for('addProduct')}}" class="btn btn-secondary float-end">Add
+            Product</a>
+      
+    </div>
+   
+        <input type="text" name="searchKeyword" id="searchInput" onkeyup="searchTable()"
+            placeholder="Search for a Product" class="form-control">
+
+    
+    
+    <table class="table mt-3 tabe-hover table-bordered table-striped table-compact" id="dataTable" style="-webkit-box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    background-color: #FFF;">
+        <colgroup>
+            <col width="15%">
+            <col width="20%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+            <col width="20%">
+            
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Image</th>
+                <th>product Category</th>
+                <th>WareHouse</th>
+                <th>price</th>
+                <th>Quantity</th>
+                <th>Availability</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for p in products%}
+            
+            <tr>
+                <td class="text-center">{{p[1]}}</td>
+                <td class='text-center'>
+                    <img src="{{ url_for('static', filename='images/' + p[3]) }}" alt="" width="150px" height="150px" style="object-fit:scale-down;object-position:center center" class="img-thumbnail">
+                </td>
+                <td>{{p[4]}}</td>
+                <td><b>{{p[5]}}</b></td>
+                <td><small class="truncate">{{p[6]}}</small></td>
+                <td>{{p[7]}}</td>
+                <td>Availabe</td>
+                    
+                <td class="text-center">
+                    <div class="btn-group">
+                        <a href="{{url_for('editProduct', id=p[0])}}" class=" btn-warning btn manage_service">
+                          <i class="fa fa-edit"></i>
+                        </a>
+                        <button class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#delete_product/{{p[0]}}"><i class="fa fa-trash"></i></button>
+                        </button>
+                  </div>
+                </td>
+            </tr>
+
+
+                <!-- -------delete product popup -------- -->
+                <div class="modal fade" id="delete_product/{{p[0]}}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body text-center">
+                                <p>Do you want to Delete this Product</p>
+                                <form action="{{url_for('deleteProduct', id=p[0])}}" method="POST">
+                                      <div class="text-center p-3">
+                                        <button type="button" class="btn m-4 bg-primary"
+                                            data-bs-dismiss="modal">No</button>
+                                        <button type="submit" class="btn btn-danger"
+                                            id="confirmButton">Yes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+{%endblock%}

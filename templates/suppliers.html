@@ -1,0 +1,72 @@
+{%extends 'layout.html'%}
+
+{%block content%}
+Suppliers
+
+<div class="row">
+    <div class="col-md-12">
+        
+    <button data-bs-target="#add_supplier" data-bs-toggle="modal" class="btn btn-secondary float-end">Add
+        Supplier</button>
+
+        <div class="modal fade" id="add_supplier" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Supplier</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{url_for('suppliers')}}" method="POST">
+                            <label for="">Supplier Name</label>
+                            <input type="text" class="form-control my-2" placeholder="Supplier Name" name="sup_name">
+                            <label for="">Supplier Email</label>
+                            <input type="text" class="form-control my-2" placeholder="Supplier Email" name="sup_email">
+                            <label for="">Supplier Phone</label>
+                            <input type="text" class="form-control my-2" placeholder="Supplier Phone" name="sup_phone">
+
+                            <label for="">Password</label>
+                            <input type="text" readonly  class="form-control my-2" id="password" name="password">
+                            
+                            <button type="submit" name="add_category" class="btn btn-secondary form-control">Add</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+        </div>
+</div>
+
+<div class="container-fluid mt-4">
+    <input type="text" name="searchKeyword" id="searchInput" onkeyup="searchTable()"
+            placeholder="Search for Employee" class="form-control my-3">
+    <table class="white-bg table table-striped table-bordered" id="dataTable">
+        <thead>
+            <tr>
+                <th>Supplier Name</th>
+                <th>Supplier Phone</th>
+                <th>Supplier Email</th>
+                <th>Password</th>
+                <th>Action</th>
+               
+            </tr>      
+        </thead>
+        <tbody>
+            {%for s in suppliers%}
+            <tr>
+            <td>{{s[1]}}</td>
+            <td>{{s[3]}}</td>
+
+            <td>{{s[2]}}</td>
+            <td>{{s[4]}}</td>
+            <td><a href="" class="nav-link text-primary">View Supplies</a></td>
+            </tr>
+            
+            {%endfor%}
+        </tbody>
+
+    </table>
+</div>
+
+{%endblock%}
